@@ -7,38 +7,16 @@ import java.util.*;
  * 
  * @author Kanghoon Choi
  */
-public class WeatherData implements Subject {
-
-	private List<Observer> observerList;
+public class WeatherData extends Observable {
 	private float temperature;	// 온도
 	private float humidity;		// 습도
 	private float pressure;		// 기압
-
-	public WeatherData() {
-		observerList = new ArrayList<>();
-	}
-
-	@Override
-	public void registerObserver(Observer observer) {
-		observerList.add(observer);
-	}
-
-	@Override
-	public void removeObserver(Observer observer) {
-		observerList.remove(observer);
-	}
-
-	@Override
-	public void notifyObservers() {
-		for (Observer observer : observerList) {
-			observer.update(temperature, humidity, pressure);
-		}
-	}
 
 	/**
 	 * 기상스테이션으로부터 갱신된 측정치를 받으면 옵저버들에게 알린다.
 	 */
 	public void measurementsChanged() {
+		setChanged();
 		notifyObservers();
 	}
 

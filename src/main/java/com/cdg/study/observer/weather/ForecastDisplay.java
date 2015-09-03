@@ -1,5 +1,8 @@
 package com.cdg.study.observer.weather;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * 기상예보 디스플레이
  * 
@@ -9,18 +12,21 @@ public class ForecastDisplay implements Observer, DisplayElement {
 
 	private float currentPressure = 29.92f;
 	private float lastPressure;
-	private WeatherData weatherData;
+	private Observable observable;
 
-	public ForecastDisplay(WeatherData weatherData) {
-		this.weatherData = weatherData;
-		this.weatherData.registerObserver(this);
+	public ForecastDisplay(Observable observable) {
+		this.observable = observable;
+		this.observable.addObserver(this);
 	}
 
-	public void update(float temp, float humidity, float pressure) {
-		lastPressure = currentPressure;
-		currentPressure = pressure;
-
-		display();
+	@Override
+	public void update(Observable observable, Object arg) {
+		if (observable instanceof WeatherData) {
+			WeatherData weatherData = (WeatherData)observable;
+			lastPressure = currentPressure;
+			currentPressure = weatherData.getPressure();
+			display();
+		}
 	}
 
 	public void display() {
@@ -33,4 +39,5 @@ public class ForecastDisplay implements Observer, DisplayElement {
 			System.out.println("Watch out for cooler, rainy weather");
 		}
 	}
+
 }

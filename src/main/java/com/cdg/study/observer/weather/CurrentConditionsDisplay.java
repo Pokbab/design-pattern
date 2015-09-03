@@ -1,5 +1,8 @@
 package com.cdg.study.observer.weather;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * 현재 조건을 표시하는 디스플레이
  * 
@@ -9,23 +12,21 @@ public class CurrentConditionsDisplay implements Observer, DisplayElement {
 
 	private float temperature;
 	private float humidity;
-	private Subject weatherData;
+	private Observable observable;
 
-	/**
-	 * 디스플레이를 옵저버로 등록한다
-	 * 
-	 * @param weatherData
-	 */
-	public CurrentConditionsDisplay(Subject weatherData) {
-		this.weatherData = weatherData;
-		this.weatherData.registerObserver(this);
+	public CurrentConditionsDisplay(Observable observable) {
+		this.observable = observable;
+		this.observable.addObserver(this);
 	}
 
 	@Override
-	public void update(float temperature, float humidity, float pressure) {
-		this.temperature = temperature;
-		this.humidity = humidity;
-		display();
+	public void update(Observable observable, Object arg) {
+		if (observable instanceof WeatherData) {
+			WeatherData weatherData = (WeatherData)observable;
+			this.temperature = weatherData.getTemperature();
+			this.humidity = weatherData.getHumidity();
+			display();
+		}
 	}
 
 	@Override

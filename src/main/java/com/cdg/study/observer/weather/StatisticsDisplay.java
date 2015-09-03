@@ -1,5 +1,8 @@
 package com.cdg.study.observer.weather;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * 기상통계 디스플레이
  * 
@@ -11,26 +14,32 @@ public class StatisticsDisplay implements Observer, DisplayElement {
 	private float minTemp = 200;
 	private float tempSum = 0.0f;
 	private int numReadings;
-	private WeatherData weatherData;
+	private Observable observable;
 
-	public StatisticsDisplay(WeatherData weatherData) {
-		this.weatherData = weatherData;
-		this.weatherData.registerObserver(this);
+	public StatisticsDisplay(Observable observable) {
+		this.observable = observable;
+		this.observable.addObserver(this);
 	}
 
-	public void update(float temp, float humidity, float pressure) {
-		tempSum += temp;
-		numReadings++;
-
-		if (temp > maxTemp) {
-			maxTemp = temp;
+	@Override
+	public void update(Observable observable, Object arg) {
+		if (observable instanceof WeatherData) {
+			WeatherData weatherData = (WeatherData)observable;
+			
+			float temp = weatherData.getTemperature();
+			tempSum += temp;
+			numReadings++;
+	
+			if (temp > maxTemp) {
+				maxTemp = temp;
+			}
+	
+			if (temp < minTemp) {
+				minTemp = temp;
+			}
+	
+			display();
 		}
-
-		if (temp < minTemp) {
-			minTemp = temp;
-		}
-
-		display();
 	}
 
 	public void display() {
