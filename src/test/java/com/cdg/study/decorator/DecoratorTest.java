@@ -1,8 +1,13 @@
 package com.cdg.study.decorator;
 
-import static org.junit.Assert.*;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.junit.Test;
+
+import com.cdg.study.decorator.io.LowerCaseInputStream;
 
 
 
@@ -25,5 +30,25 @@ public class DecoratorTest {
 		beverage3 = new Whip(beverage3);
 		System.out.println(beverage3);
 
+	}
+	
+	@Test
+	public void testIO() throws Exception {
+		int c;
+
+		try {
+			InputStream in = 
+				new LowerCaseInputStream(
+					new BufferedInputStream(
+						new FileInputStream("src/test/resources/test.txt")));
+
+			while((c = in.read()) >= 0) {
+				System.out.print((char)c);
+			}
+
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
