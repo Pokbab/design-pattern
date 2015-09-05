@@ -2,17 +2,17 @@ package com.cdg.study.factory;
 
 
 public class PizzaStore {
+	
+	private SimplePizzaFactory factory;
+	
+	public PizzaStore(SimplePizzaFactory factory) {
+		this.factory = factory;
+	}
 
 	public Pizza orderPizza(String type) {
 		Pizza pizza = null;
 
-		if ("cheese".equals(type)) {
-			pizza = new CheesePizza();
-		} else if ("pepperoni".equals(type)) {
-			pizza = new PepperoniPizza();
-		} else if ("veggie".equals(type)) {
-			pizza = new VeggiePizza();
-		}
+		pizza = factory.createPizza(type);
 
 		pizza.prepare();
 		pizza.bake();
