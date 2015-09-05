@@ -7,11 +7,17 @@ package com.cdg.study.command;
  */
 public class Light {
 
+	private String location = "";
+
+	public Light(String location) {
+		this.location = location;
+	}
+	
 	public void on() {
-		System.out.println("Light is on");
+		System.out.println(location + " light is on");
 	}
 
 	public void off() {
-		System.out.println("Light is off");
+		System.out.println(location + " light is off");
 	}
 }
