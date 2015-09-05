@@ -6,7 +6,11 @@ package com.cdg.study.command;
  * @author Kanghoon Choi
  */
 public class NoCommand implements Command {
-
+	@Override
 	public void execute() {
+	}
+
+	@Override
+	public void undo() {
 	}
 }

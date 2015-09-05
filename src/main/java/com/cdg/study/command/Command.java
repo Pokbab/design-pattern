@@ -7,5 +7,13 @@ package com.cdg.study.command;
  */
 public interface Command {
 
+	/**
+	 * 작업수행
+	 */
 	public void execute();
+	
+	/**
+	 * 작업취소
+	 */
+	public void undo();
 }

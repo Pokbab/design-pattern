@@ -30,10 +30,16 @@ public class CommandTest {
 		
 		remoteControl.onButtonWasPushed(0);
 		remoteControl.offButtonWasPushed(0);
+		remoteControl.undoButtonWasPushed(0);
+		
 		remoteControl.onButtonWasPushed(1);
 		remoteControl.offButtonWasPushed(1);
+		remoteControl.undoButtonWasPushed(1);
+		
 		remoteControl.onButtonWasPushed(2);
 		remoteControl.offButtonWasPushed(2);
+		remoteControl.undoButtonWasPushed(2);
+		
 		remoteControl.onButtonWasPushed(3);
 		remoteControl.offButtonWasPushed(3);
 	}
