@@ -3,6 +3,11 @@ package com.cdg.study.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 제품 클래스.
+ * 
+ * @author Kanghoon Choi
+ */
 public abstract class Pizza {
 
 	protected String name;	// 피자이름

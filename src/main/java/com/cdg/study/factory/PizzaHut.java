@@ -1,16 +1,19 @@
 package com.cdg.study.factory;
 
-public class SimplePizzaFactory {
+/**
+ * 피자 팩토리
+ * 
+ * @author Kanghoon Choi
+ */
+public class PizzaHut extends PizzaStore {
 
 	public Pizza createPizza(String type) {
 		Pizza pizza = null;
 
 		if ("cheese".equals(type)) {
-			pizza = new CheesePizza();
+			pizza = new PizzaHutCheesePizza();
 		} else if ("pepperoni".equals(type)) {
-			pizza = new PepperoniPizza();
-		} else if ("veggie".equals(type)) {
-			pizza = new VeggiePizza();
+			pizza = new PizzaHutPepperoniPizza();
 		}
 		return pizza;
 	}

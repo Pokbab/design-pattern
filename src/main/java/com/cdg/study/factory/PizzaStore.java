@@ -1,18 +1,17 @@
 package com.cdg.study.factory;
 
 
-public class PizzaStore {
+/**
+ * 생산자 클래스.
+ * 
+ * @author Kanghoon Choi
+ */
+public abstract class PizzaStore {
 	
-	private SimplePizzaFactory factory;
-	
-	public PizzaStore(SimplePizzaFactory factory) {
-		this.factory = factory;
-	}
-
 	public Pizza orderPizza(String type) {
 		Pizza pizza = null;
 
-		pizza = factory.createPizza(type);
+		pizza = createPizza(type);
 
 		pizza.prepare();
 		pizza.bake();
@@ -22,4 +21,11 @@ public class PizzaStore {
 		return pizza;
 	}
 
+	/**
+	 * 피자 만드는부분은 팩토리메소드에서 처리
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public abstract Pizza createPizza(String type);
 }
