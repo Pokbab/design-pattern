@@ -43,4 +43,32 @@ public class CommandTest {
 		remoteControl.onButtonWasPushed(3);
 		remoteControl.offButtonWasPushed(3);
 	}
+	
+	@Test
+	public void testMacro() throws Exception {
+		RemoteControl remoteControl = new RemoteControl();
+		
+		Light livingRoomLight = new Light("거실");
+		Stereo stereo = new Stereo("거실");
+		
+		LightOnCommand lightOn = new LightOnCommand(livingRoomLight);
+		LightOffCommand lightOff = new LightOffCommand(livingRoomLight);
+		
+		StereoOnWithCDCommand stereoOn = new StereoOnWithCDCommand(stereo);
+		StereoOffCommand stereoOff = new StereoOffCommand(stereo);
+		
+		Command[] partyOn = { lightOn, stereoOn};
+		Command[] partyOff = { lightOff, stereoOff};
+  
+		MacroCommand partyOnMacro = new MacroCommand(partyOn);
+		MacroCommand partyOffMacro = new MacroCommand(partyOff);
+ 
+		remoteControl.setCommand(0, partyOnMacro, partyOffMacro);
+  
+		System.out.println(remoteControl);
+		System.out.println("--- Pushing Macro On---");
+		remoteControl.onButtonWasPushed(0);
+		System.out.println("--- Pushing Macro Off---");
+		remoteControl.offButtonWasPushed(0);
+	}
 }
