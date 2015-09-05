@@ -3,6 +3,13 @@ package com.cdg.study.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cdg.study.factory.ingredient.Cheese;
+import com.cdg.study.factory.ingredient.Clams;
+import com.cdg.study.factory.ingredient.Dough;
+import com.cdg.study.factory.ingredient.Pepperoni;
+import com.cdg.study.factory.ingredient.Sauce;
+import com.cdg.study.factory.ingredient.Veggies;
+
 /**
  * 제품 클래스.
  * 
@@ -11,17 +18,23 @@ import java.util.List;
 public abstract class Pizza {
 
 	protected String name;	// 피자이름
-	protected String dough;	// 도우
-	protected String sauce;	// 소스
+	protected Dough dough;	// 도우
+	protected Sauce sauce;	// 소스
+	protected Veggies veggies[];
+	protected Cheese cheese;
+	protected Pepperoni pepperoni;
+	protected Clams clams;
 	protected List<String> toppings = new ArrayList<>();
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}
 
-	public void prepare() {
-		System.out.println("준비 " + name);
-	}
+	public abstract void prepare();
 
 	public void bake() {
 		System.out.println("굽는중 " + name);
