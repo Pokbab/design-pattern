@@ -21,11 +21,16 @@ public class PancakeHouseMenu {
 		menuItems.add(menuItem);
 	}
 
+	@Deprecated
 	public List<MenuItem> getMenuItems() {
 		return menuItems;
 	}
 
 	public String toString() {
 		return "Objectville Pancake House Menu";
+	}
+	
+	public Iterator createIterator() {
+		return new PancakeHouseMenuIterator(menuItems);
 	}
 }
