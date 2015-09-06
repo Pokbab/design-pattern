@@ -1,5 +1,7 @@
 package com.cdg.study.iterator;
 
+import java.util.Iterator;
+
 
 /**
  * 종업원 입장에서는 각 메뉴에 대해서 반복문을 돌려야함
@@ -7,17 +9,17 @@ package com.cdg.study.iterator;
  * @author Kanghoon Choi
  */
 public class Waitress {
-	private PancakeHouseMenu pancakeHouseMenu;
-	private DinerMenu dinerMenu;
+	private Menu pancakeHouseMenu;
+	private Menu dinerMenu;
  
-	public Waitress(PancakeHouseMenu pancakeHouseMenu, DinerMenu dinerMenu) {
+	public Waitress(Menu pancakeHouseMenu, Menu dinerMenu) {
 		this.pancakeHouseMenu = pancakeHouseMenu;
 		this.dinerMenu = dinerMenu;
 	}
  
 	public void printMenu() {
-		Iterator breakfastIterator = pancakeHouseMenu.createIterator();
-		Iterator dinerIterator = dinerMenu.createIterator();
+		Iterator<MenuItem> breakfastIterator = pancakeHouseMenu.createIterator();
+		Iterator<MenuItem> dinerIterator = dinerMenu.createIterator();
 		
 		System.out.println("MENU\n----\nBREAKFAST");
 		printMenu(breakfastIterator);
@@ -25,7 +27,7 @@ public class Waitress {
 		printMenu(dinerIterator);
 	}
 	
-	private void printMenu(Iterator iterator) {
+	private void printMenu(Iterator<MenuItem> iterator) {
 		while (iterator.hasNext()) {
 			MenuItem menuItem = (MenuItem)iterator.next();
 			System.out.print(menuItem.getName() + ", ");

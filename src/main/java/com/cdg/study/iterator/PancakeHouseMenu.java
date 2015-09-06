@@ -1,9 +1,10 @@
 package com.cdg.study.iterator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class PancakeHouseMenu {
+public class PancakeHouseMenu implements Menu {
 
 	private List<MenuItem> menuItems;
 
@@ -30,7 +31,8 @@ public class PancakeHouseMenu {
 		return "Objectville Pancake House Menu";
 	}
 	
-	public Iterator createIterator() {
-		return new PancakeHouseMenuIterator(menuItems);
+	@Override
+	public Iterator<MenuItem> createIterator() {
+		return menuItems.iterator();
 	}
 }
