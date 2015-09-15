@@ -1,6 +1,18 @@
-package com.cdg.study.state;
+package com.cdg.study.proxy;
 
-public class GumballMachine {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+/**
+ * 뽑기 머신
+ * 
+ * UnicastRemoteObject : 원격 서비스 역할을 하기위해 상속
+ * GumballMachineRemote : 원격 인터페이스 구현
+ * 
+ * @author Kanghoon Choi
+ */
+@SuppressWarnings("serial")
+public class GumballMachine extends UnicastRemoteObject implements GumballMachineRemote {
 
 	private State soldOutState;
 	private State noQuarterState;
@@ -9,58 +21,60 @@ public class GumballMachine {
 	private State winnerState;
 
 	private State state = soldOutState;
-	int count = 0;
-
-	public GumballMachine(int numberGumballs) {
-		soldOutState = new SoldOutState(this);
-		noQuarterState = new NoQuarterState(this);
-		hasQuarterState = new HasQuarterState(this);
-		soldState = new SoldState(this);
-		winnerState = new WinnerState(this);
+	private int count = 0;
+	private String location;
+	
+	public GumballMachine(String location, int numberGumballs) throws RemoteException {
+		this.soldOutState = new SoldOutState(this);
+		this.noQuarterState = new NoQuarterState(this);
+		this.hasQuarterState = new HasQuarterState(this);
+		this.soldState = new SoldState(this);
+		this.winnerState = new WinnerState(this);
 
 		this.count = numberGumballs;
 		if (numberGumballs > 0) {
-			state = noQuarterState;
+			this.state = noQuarterState;
 		}
+		this.location = location;
 	}
 
 	/**
 	 * 동전 투입
 	 */
 	public void insertQuarter() {
-		state.insertQuarter();
+		this.state.insertQuarter();
 	}
 
 	/**
 	 * 동전 반환
 	 */
 	public void ejectQuarter() {
-		state.ejectQuarter();
+		this.state.ejectQuarter();
 	}
 
 	/**
 	 * 손잡이 돌리기
 	 */
 	public void turnCrank() {
-		state.turnCrank();
-		state.dispense();
+		this.state.turnCrank();
+		this.state.dispense();
 	}
 
-	void setState(State state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 
 	/**
 	 * 캡슐 배출
 	 */
-	void releaseBall() {
+	public void releaseBall() {
 		System.out.println("캡슐을 내보냈습니다...");
 		if (count != 0) {
 			count = count - 1;
 		}
 	}
 
-	int getCount() {
+	public int getCount() {
 		return count;
 	}
 
@@ -69,9 +83,9 @@ public class GumballMachine {
 	 * 
 	 * @param count
 	 */
-	void refill(int count) {
+	public void refill(int count) {
 		this.count = count;
-		state = noQuarterState;
+		this.state = noQuarterState;
 	}
 
 	public State getState() {
@@ -96,6 +110,10 @@ public class GumballMachine {
 	
 	public State getWinnerState() {
 		return winnerState;
+	}
+	
+	public String getLocation() {
+		return location;
 	}
 
 	public String toString() {
