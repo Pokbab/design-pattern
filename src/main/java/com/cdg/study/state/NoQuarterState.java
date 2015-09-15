@@ -1,30 +1,36 @@
 package com.cdg.study.state;
 
 public class NoQuarterState implements State {
-    GumballMachine gumballMachine;
- 
-    public NoQuarterState(GumballMachine gumballMachine) {
-        this.gumballMachine = gumballMachine;
-    }
- 
+
+	private GumballMachine gumballMachine;
+
+	public NoQuarterState(GumballMachine gumballMachine) {
+		this.gumballMachine = gumballMachine;
+	}
+
+	@Override
 	public void insertQuarter() {
-		System.out.println("You inserted a quarter");
+		System.out.println("동전을 넣으셨습니다.");
 		gumballMachine.setState(gumballMachine.getHasQuarterState());
 	}
- 
+
+	@Override
 	public void ejectQuarter() {
-		System.out.println("You haven't inserted a quarter");
+		System.out.println("동전을 넣어주세요.");
 	}
- 
+
+	@Override
 	public void turnCrank() {
-		System.out.println("You turned, but there's no quarter");
-	 }
- 
+		System.out.println("동전을 넣어주세요.");
+	}
+
+	@Override
 	public void dispense() {
-		System.out.println("You need to pay first");
-	} 
- 
+		System.out.println("동전을 넣어주세요.");
+	}
+
+	@Override
 	public String toString() {
-		return "waiting for quarter";
+		return "동전 투입전";
 	}
 }
