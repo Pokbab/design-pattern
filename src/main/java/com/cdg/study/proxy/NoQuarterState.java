@@ -1,8 +1,9 @@
 package com.cdg.study.proxy;
 
+@SuppressWarnings("serial")
 public class NoQuarterState implements State {
 
-	private GumballMachine gumballMachine;
+	private transient GumballMachine gumballMachine;
 
 	public NoQuarterState(GumballMachine gumballMachine) {
 		this.gumballMachine = gumballMachine;

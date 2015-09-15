@@ -2,9 +2,10 @@ package com.cdg.study.proxy;
 
 import java.util.Random;
 
+@SuppressWarnings("serial")
 public class HasQuarterState implements State {
 
-	private GumballMachine gumballMachine;
+	private transient GumballMachine gumballMachine;
 	private Random randomWinner = new Random(System.currentTimeMillis());
 
 	public HasQuarterState(GumballMachine gumballMachine) {

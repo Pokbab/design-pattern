@@ -1,6 +1,18 @@
 package com.cdg.study.proxy;
 
-public class GumballMachine {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+/**
+ * 뽑기 머신
+ * 
+ * UnicastRemoteObject : 원격 서비스 역할을 하기위해 상속
+ * GumballMachineRemote : 원격 인터페이스 구현
+ * 
+ * @author Kanghoon Choi
+ */
+@SuppressWarnings("serial")
+public class GumballMachine extends UnicastRemoteObject implements GumballMachineRemote {
 
 	private State soldOutState;
 	private State noQuarterState;
@@ -12,7 +24,7 @@ public class GumballMachine {
 	private int count = 0;
 	private String location;
 	
-	public GumballMachine(String location, int numberGumballs) {
+	public GumballMachine(String location, int numberGumballs) throws RemoteException {
 		this.soldOutState = new SoldOutState(this);
 		this.noQuarterState = new NoQuarterState(this);
 		this.hasQuarterState = new HasQuarterState(this);
@@ -48,21 +60,21 @@ public class GumballMachine {
 		this.state.dispense();
 	}
 
-	void setState(State state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 
 	/**
 	 * 캡슐 배출
 	 */
-	void releaseBall() {
+	public void releaseBall() {
 		System.out.println("캡슐을 내보냈습니다...");
 		if (count != 0) {
 			count = count - 1;
 		}
 	}
 
-	int getCount() {
+	public int getCount() {
 		return count;
 	}
 
@@ -71,7 +83,7 @@ public class GumballMachine {
 	 * 
 	 * @param count
 	 */
-	void refill(int count) {
+	public void refill(int count) {
 		this.count = count;
 		this.state = noQuarterState;
 	}

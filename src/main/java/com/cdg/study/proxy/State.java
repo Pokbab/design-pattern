@@ -1,11 +1,13 @@
 package com.cdg.study.proxy;
 
+import java.io.Serializable;
+
 /**
  * 짐볼머신의 상태를 표현
  * 
  * @author Kanghoon Choi
  */
-public interface State {
+public interface State extends Serializable {
 
 	/**
 	 * 동전 삽입
